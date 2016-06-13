@@ -1,6 +1,8 @@
 provision_docker
 =========
 
+[![Build Status](https://travis-ci.org/tomashavlas/ansible-role-provision_docker.svg?branch=master)](https://travis-ci.org/tomashavlas/ansible-role-provision_docker/)
+
 An [Ansible](https://www.ansible.com/) role to provision [Docker](https://www.docker.com/) containers, mostly for Ansible role testing purposes.
 
 Docker images designed for Ansible role testing purposes, running systemd init system and openssh server.
