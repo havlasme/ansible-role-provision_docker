@@ -1,0 +1,34 @@
+---
+- name: Initialize docker containers
+  local_action:
+    module: 'docker'
+    name: '{{ item.name }}'
+    image: '{{ item.image }}'
+    hostname: '{{ item.hostname | default(omit) }}'
+    privileged: '{{ item.privileged | default(omit) }}'
+    volumes: '{{ item.volumes | default(omit) }}'
+    state: '{{ provision_docker__container_state }}'
+  with_items: '{{ provision_docker__inventory }}'
+  when: ((item.name is defined and item.name) and
+         (item.image is defined and item.image))
+
+- name: Collect IP addresses of containers
+  local_action:
+    module: 'command'
+    args: 'docker inspect --format "{{ "{{" }} .NetworkSettings.IPAddress {{ "}}" }}" {{ item.name }}'
+  register: provision_docker__ip_addresses
+  with_items: '{{ provision_docker__inventory }}'
+  changed_when: False
+
+- name: Assign docker container hosts to ansible inventory
+  local_action:
+    module: 'add_host'
+    name: '{{ item.0.name }}'
+    ansible_ssh_host: '{{ item.1.stdout }}'
+    ansible_ssh_user: '{{ item.0.ansible_ssh_user | default(provision_docker__ssh_user) }}'
+    ansible_ssh_pass: '{{ item.0.ansible_ssh_pass | default(provision_docker__ssh_pass) }}'
+    groups: '{{ provision_docker__inventory_groups | union(item.0.groups | default([])) | join(",") }}'
+  with_together:
+    - '{{ provision_docker__inventory }}'
+    - '{{ provision_docker__ip_addresses.results }}'
+  changed_when: False
