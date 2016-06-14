@@ -1,7 +1,9 @@
 provision_docker
 =========
 
-[![Build Status](https://travis-ci.org/tomashavlas/ansible-role-provision_docker.svg?branch=master)](https://travis-ci.org/tomashavlas/ansible-role-provision_docker/)
+[![Ansible Galaxy][galaxy_image]][galaxy_link]
+[![Build Status][travis_image]][travis_link]
+[![Latest Tag][tag_image]][tag_link]
 
 An [Ansible](https://www.ansible.com/) role to provision [Docker](https://www.docker.com/) containers, mostly for Ansible role testing purposes.
 
@@ -16,8 +18,9 @@ Requirements
 ------------
 
 This role requires following packages to be installed:
-* `docker-py` to manage docker packages with ansible,
-* `sshpass` to allow non-interactive password authentication to ssh server.
+
+- `docker-py` to manage docker packages with ansible,
+- `sshpass` to allow non-interactive password authentication to ssh server.
 
 Role Variables
 --------------
@@ -63,8 +66,7 @@ Example Playbook
 
 Sample playbook to initialize two Docker containers.
 ```yaml
-- name: Initialize sample Docker containers
-  hosts: localhost
+- hosts: localhost
   roles:
     - role: provision_docker
       provision_docker__inventory:
@@ -91,3 +93,11 @@ Author Information
 Created by [Tomáš Havlas](https://github.com/tomashavlas) in 2016.
 
 Based on [Chris Meyers's](https://github.com/chrismeyersfsu) idea and Ansible role [provision_docker](https://github.com/chrismeyersfsu/provision_docker).
+
+
+[galaxy_image]: https://img.shields.io/badge/galaxy-tomashavlas.provision__docker-blue.svg?style=flat
+[galaxy_link]: https://galaxy.ansible.com/tomashavlas/provision_docker/
+[tag_image]: https://img.shields.io/github/tag/tomashavlas/ansible-role-provision_docker.svg
+[tag_link]: https://github.com/tomashavlas/ansible-role-provision_docker/tags
+[travis_image]: https://travis-ci.org/tomashavlas/ansible-role-provision_docker.svg?branch=master
+[travis_link]: https://travis-ci.org/tomashavlas/ansible-role-provision_docker/
