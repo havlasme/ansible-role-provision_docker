@@ -42,7 +42,7 @@
       failed_when: ((test_result.failed is defined and test_result.failed) or
                     (test_result.changed is defined and test_result.changed))
       tags:
-        - 'functional_test'
+        - 'acceptance_test'
   tasks:
     - name: Create simple test file on each docker host
       copy:
