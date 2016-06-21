@@ -2,7 +2,7 @@
 - name: Initialize test Docker containers
   hosts: localhost
   roles:
-    - role: provision_docker
+    - role: 'provision_docker'
       provision_docker__inventory:
         - name: 'test_provision_docker_main_centos7'
           image: 'tomashavlas/ansible-test:centos7'
@@ -20,12 +20,11 @@
         timeout: 30
         connect_timeout: 30
       with_items: '{{ provision_docker__inventory }}'
-  tags:
-    - 'initialize_docker'
+  tags: [ 'initialize-docker' ]
 
 - name: Run provision_docker role basic test scenario
   hosts: provision_docker__containers
-  remote_user: root
+  remote_user: 'root'
   vars:
     provision_docker__testfile_path: '/tmp/testfile'
     provision_docker__testfile_content: 'I am a docker container {{ inventory_hostname }}'
@@ -38,11 +37,10 @@
         group: 'root'
         mode: 0440
         directory_mode: 0550
-      register: test_result
+      register: 'test_result'
       failed_when: ((test_result.failed is defined and test_result.failed) or
                     (test_result.changed is defined and test_result.changed))
-      tags:
-        - 'acceptance_test'
+      tags: [ 'acceptance-test' ]
   tasks:
     - name: Create simple test file on each docker host
       copy:
