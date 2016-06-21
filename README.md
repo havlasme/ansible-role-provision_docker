@@ -1,5 +1,5 @@
 provision_docker
-=========
+================
 
 [![Ansible Galaxy][galaxy_image]][galaxy_link]
 [![Build Status][travis_image]][travis_link]
