@@ -16,8 +16,10 @@
   local_action:
     module: 'command'
     args: 'docker inspect --format "{{ "{{" }} .NetworkSettings.IPAddress {{ "}}" }}" {{ item.name }}'
-  register: provision_docker__ip_addresses
+  register: 'provision_docker__ip_addresses'
   with_items: '{{ provision_docker__inventory }}'
+  when: (provision_docker__container_state == 'started' or provision_docker__container_state == 'reloaded' or
+         provision_docker__container_state == 'restarted')
   changed_when: False
 
 - name: Assign docker container hosts to ansible inventory
@@ -31,4 +33,6 @@
   with_together:
     - '{{ provision_docker__inventory }}'
     - '{{ provision_docker__ip_addresses.results }}'
+  when: (provision_docker__container_state == 'started' or provision_docker__container_state == 'reloaded' or
+         provision_docker__container_state == 'restarted')
   changed_when: False
