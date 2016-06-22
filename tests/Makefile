@@ -14,6 +14,6 @@ main:
 	&& (echo 'Acceptance test: PASS' && exit 0)\
 	|| (echo 'Acceptance test: FAIL' && exit 1)
 
-cleanup:
+cleanall:
 	# remove docker containers
 	ansible-playbook main.yml -i inventory -e "provision_docker__container_state=absent" --tags=initialize-docker
