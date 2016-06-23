@@ -9,8 +9,8 @@
     volumes: '{{ item.volumes|default(omit) }}'
     state: '{{ provision_docker__container_state }}'
   with_items: '{{ provision_docker__inventory }}'
-  when: ((item.name is defined and item.name) and
-         (item.image is defined and item.image))
+  when: ((item.name is defined and item.name|trim) and
+         (item.image is defined and item.image|trim))
 
 - name: Collect IP addresses of containers
   local_action:

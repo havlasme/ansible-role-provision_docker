@@ -10,6 +10,9 @@ Unreleased
 - Created cleanup target for tests.
   [tomashavlas]
 
+- Added `trim` filter when checking for non-empty variables in conditions.
+  [tomashavlas]
+
 v1.0
 ----
 
