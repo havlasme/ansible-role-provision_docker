@@ -38,8 +38,7 @@
         mode: 0440
         directory_mode: 0550
       register: 'test_result'
-      failed_when: ((test_result.failed is defined and test_result.failed) or
-                    (test_result.changed is defined and test_result.changed))
+      failed_when: (test_result|failed or test_result|changed)
       tags: [ 'acceptance-test' ]
   tasks:
     - name: Create simple test file on each docker host
