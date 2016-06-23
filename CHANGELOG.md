@@ -4,7 +4,7 @@ Changelog
 Unreleased
 ----------
 
-- Assign docker container hosts to ansible inventory only when containers are running.
+- Assign docker container hosts to Ansible inventory only when containers are running.
   [tomashavlas]
 
 - Created cleanup target for tests.
@@ -14,6 +14,9 @@ Unreleased
   [tomashavlas]
 
 - Replaced complex conditions with `changed` and `failed` filters in acceptance tests.
+  [tomashavlas]
+
+- Added `register` prefix to variables created by Ansible role.
   [tomashavlas]
 
 v1.0
