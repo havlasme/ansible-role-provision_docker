@@ -19,6 +19,9 @@ Unreleased
 - Added `register` prefix to variables created by Ansible role.
   [tomashavlas]
 
+- Updated minimal Ansible version to `2.0`.
+  [tomashavlas]
+
 v1.0
 ----
 

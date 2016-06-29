@@ -5,7 +5,7 @@ galaxy_info:
   description: 'Provision docker containers, suitable for testing ansible roles.'
   company: 'Raven Systems'
   license: 'BSD'
-  min_ansible_version: 1.7
+  min_ansible_version: 2.0
   github_branch: 'master'
   platforms:
     - name: Debian
