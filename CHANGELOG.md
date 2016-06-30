@@ -1,8 +1,10 @@
 Changelog
 =========
 
-Unreleased
+v1.1
 ----------
+
+*Released: 2016-06-30*
 
 - Assign docker container hosts to Ansible inventory only when containers are running.
   [tomashavlas]
