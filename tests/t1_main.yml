@@ -1,5 +1,5 @@
 ---
-- name: Initialize test Docker containers
+- name: Pre-Test Scenario 1.0 - initialize Docker containers
   hosts: localhost
   roles:
     - role: 'provision_docker'
@@ -22,14 +22,14 @@
       with_items: '{{ provision_docker__inventory }}'
   tags: [ 'initialize-docker' ]
 
-- name: Run provision_docker role basic test scenario
+- name: Test Scenario 1.1 - basic functionality
   hosts: provision_docker__containers
   remote_user: 'root'
   vars:
     provision_docker__testfile_path: '/tmp/testfile'
     provision_docker__testfile_content: 'I am a docker container {{ inventory_hostname }}'
   post_tasks:
-    - name: Test for presence of testfiles on docker hosts
+    - name: Acceptance Test - verify presence of test files on docker hosts
       copy:
         dest: '{{ provision_docker__testfile_path }}'
         content: '{{ provision_docker__testfile_content }}'
@@ -41,7 +41,7 @@
       failed_when: (test_result|failed or test_result|changed)
       tags: [ 'acceptance-test' ]
   tasks:
-    - name: Create simple test file on each docker host
+    - name: Functional Test - create simple test file on each docker host
       copy:
         dest: '{{ provision_docker__testfile_path }}'
         content: '{{ provision_docker__testfile_content }}'
