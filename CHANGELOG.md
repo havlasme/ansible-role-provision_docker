@@ -7,6 +7,9 @@ Unreleased
 - Refactored tests.
   [tomashavlas]
 
+- Refactored tasks names.
+  [tomashavlas]
+
 v1.1
 ----
 
