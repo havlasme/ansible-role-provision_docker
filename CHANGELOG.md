@@ -10,6 +10,9 @@ Unreleased
 - Refactored tasks names.
   [tomashavlas]
 
+- Replaced boolean string representations ('yes','true'/'no','false') with boolean values (true/false).
+  [tomashavlas]
+
 v1.1
 ----
 

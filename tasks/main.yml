@@ -21,7 +21,7 @@
   with_items: '{{ provision_docker__inventory }}'
   when: (provision_docker__container_state == 'started' or provision_docker__container_state == 'reloaded' or
          provision_docker__container_state == 'restarted')
-  changed_when: False
+  changed_when: false
   tags: [ 'setup' ]
 
 - name: Setup - Assign Docker container hosts to Ansible inventory
@@ -37,5 +37,5 @@
     - '{{ provision_docker__register_ip_addresses.results }}'
   when: (provision_docker__container_state == 'started' or provision_docker__container_state == 'reloaded' or
          provision_docker__container_state == 'restarted')
-  changed_when: False
+  changed_when: false
   tags: [ 'setup' ]
