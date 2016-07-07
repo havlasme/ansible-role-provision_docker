@@ -1,7 +1,4 @@
 ---
-# state of provisioned Docker containers
-provision_docker__container_state: 'started'
-
 # list of provisioned Docker containers with parameters
 provision_docker__inventory: []
 ## name of container
@@ -14,6 +11,9 @@ provision_docker__inventory: []
 #    hostname: string
 ## OPTIONAL: list of container shared volumes
 #    volumes: [ string ]
+
+# state of provisioned Docker containers
+provision_docker__container_state: 'started'
 
 # default Ansible inventory groups for provisioned Docker containers,
 # appends to existing groups specified in inventory file
