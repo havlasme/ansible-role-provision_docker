@@ -4,15 +4,15 @@ all: main
 main: main_syntax main_functional main_acceptance
 
 main_syntax:
-	ansible-playbook t1_main.yml -i inventory --syntax-check
+	ansible-playbook test_01_main.yml -i inventory --syntax-check
 
 main_functional:
-	ansible-playbook t1_main.yml -i inventory -e "provision_docker__container_state=reloaded" --skip-tags=acceptance-test\
+	ansible-playbook test_01_main.yml -i inventory -e "provision_docker__container_state=reloaded" --skip-tags=acceptance-test\
 	&& (echo 'Functional test: PASS' && exit 0)\
 	|| (echo 'Functional test: FAIL' && exit 1)
 
 main_acceptance:
-	ansible-playbook t1_main.yml -i inventory --tags=initialize-docker,acceptance-test\
+	ansible-playbook test_01_main.yml -i inventory --tags=initialize-docker,acceptance-test\
 	&& (echo 'Acceptance test: PASS' && exit 0)\
 	|| (echo 'Acceptance test: FAIL' && exit 1)
 
@@ -20,4 +20,4 @@ main_acceptance:
 cleanall: clean_main
 
 clean_main:
-	ansible-playbook t1_main.yml -i inventory -e "provision_docker__container_state=absent" --tags=initialize-docker
+	ansible-playbook test_01_main.yml -i inventory -e "provision_docker__container_state=absent" --tags=initialize-docker
