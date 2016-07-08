@@ -1,2 +1,6 @@
 # ansible test run retry files
 *.retry
+
+# dependency roles for tests
+tests/roles/*
+!tests/roles/tomashavlas.provision_docker

@@ -68,7 +68,7 @@ Sample playbook to initialize two Docker containers.
 ```yaml
 - hosts: localhost
   roles:
-    - role: provision_docker
+    - role: 'tomashavlas.provision_docker'
       provision_docker__inventory:
         - name: 'sample_centos7'
           image: 'tomashavlas/ansible-test:centos7'

@@ -2,7 +2,7 @@
 - name: Pre-Test Scenario 1.0 - Initialize Docker containers
   hosts: localhost
   roles:
-    - role: 'provision_docker'
+    - role: 'tomashavlas.provision_docker'
       provision_docker__inventory:
         - name: 'test_provision_docker_01_centos7'
           image: 'tomashavlas/ansible-test:centos7'
