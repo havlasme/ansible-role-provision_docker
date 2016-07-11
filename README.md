@@ -26,9 +26,6 @@ Role Variables
 --------------
 
 ```yaml
-# state of provisioned Docker containers
-provision_docker__container_state: 'started'
-
 # list of provisioned Docker containers with parameters
 provision_docker__inventory: []
 ## name of container
@@ -42,18 +39,21 @@ provision_docker__inventory: []
 ## OPTIONAL: list of container shared volumes
 #    volumes: [ string ]
 
+# state of provisioned Docker containers
+provision_docker__container_state: "started"
+
 # default Ansible inventory groups for provisioned Docker containers,
 # appends to existing groups specified in inventory file
 provision_docker__inventory_groups:
-  - 'provision_docker__containers'
+  - "provision_docker__containers"
 
 # default user for SSH connection to Docker containers,
 # can be overriden pre host in inventory file through variable ansible_ssh_user
-provision_docker__ssh_user: 'root'
+provision_docker__ssh_user: "root"
 
 # default password for SSH connection to Docker containers,
 # can be overriden per host in inventory file through variable ansible_ssh_pass
-provision_docker__ssh_pass: 'docker.io'
+provision_docker__ssh_pass: "docker.io"
 ```
 
 Dependencies
@@ -68,16 +68,16 @@ Sample playbook to initialize two Docker containers.
 ```yaml
 - hosts: localhost
   roles:
-    - role: 'tomashavlas.provision_docker'
+    - role: "tomashavlas.provision_docker"
       provision_docker__inventory:
-        - name: 'sample_centos7'
-          image: 'tomashavlas/ansible-test:centos7'
+        - name: "sample_centos7"
+          image: "tomashavlas/ansible-test:centos7"
           volumes:
-            - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
-        - name: 'sample_debian8'
-          image: 'tomashavlas/ansible-test:debian8'
+            - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
+        - name: "sample_debian8"
+          image: "tomashavlas/ansible-test:debian8"
           volumes:
-            - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+            - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
 ```
 
 More advanced examples can be found in test scenarios of [these Ansible roles](https://github.com/search?q=user%3Atomashavlas+ansible-role).
