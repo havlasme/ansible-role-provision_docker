@@ -1,41 +1,41 @@
 ---
 - name: Setup - Initialize Docker containers
   local_action:
-    module: 'docker'
-    name: '{{ item.name }}'
-    image: '{{ item.image }}'
-    hostname: '{{ item.hostname|default(omit) }}'
-    privileged: '{{ item.privileged|default(omit) }}'
-    volumes: '{{ item.volumes|default(omit) }}'
-    state: '{{ provision_docker__container_state }}'
-  with_items: '{{ provision_docker__inventory }}'
+    module: "docker"
+    name: "{{ item.name }}"
+    image: "{{ item.image }}"
+    hostname: "{{ item.hostname|default(omit) }}"
+    privileged: "{{ item.privileged|default(omit) }}"
+    volumes: "{{ item.volumes|default(omit) }}"
+    state: "{{ provision_docker__container_state }}"
+  with_items: "{{ provision_docker__inventory }}"
   when: ((item.name is defined and item.name|trim) and
          (item.image is defined and item.image|trim))
-  tags: [ 'setup' ]
+  tags: [ "setup" ]
 
 - name: Setup - Collect IP addresses of Docker containers
   local_action:
-    module: 'command'
-    args: 'docker inspect --format "{{ "{{" }} .NetworkSettings.IPAddress {{ "}}" }}" {{ item.name }}'
-  register: 'provision_docker__register_ip_addresses'
-  with_items: '{{ provision_docker__inventory }}'
-  when: (provision_docker__container_state == 'started' or provision_docker__container_state == 'reloaded' or
-         provision_docker__container_state == 'restarted')
+    module: "command"
+    args: "docker inspect --format '{{ '{{' }} .NetworkSettings.IPAddress {{ '}}' }}' {{ item.name }}"
+  register: "provision_docker__register_ip_addresses"
+  with_items: "{{ provision_docker__inventory }}"
+  when: (provision_docker__container_state == "started" or provision_docker__container_state == "reloaded" or
+         provision_docker__container_state == "restarted")
   changed_when: false
-  tags: [ 'setup' ]
+  tags: [ "setup" ]
 
 - name: Setup - Assign Docker container hosts to Ansible inventory
   local_action:
-    module: 'add_host'
-    name: '{{ item.0.name }}'
-    ansible_ssh_host: '{{ item.1.stdout }}'
-    ansible_ssh_user: '{{ item.0.ansible_ssh_user|default(provision_docker__ssh_user) }}'
-    ansible_ssh_pass: '{{ item.0.ansible_ssh_pass|default(provision_docker__ssh_pass) }}'
-    groups: '{{ provision_docker__inventory_groups|union(item.0.groups|default([]))|join(",") }}'
+    module: "add_host"
+    name: "{{ item.0.name }}"
+    ansible_ssh_host: "{{ item.1.stdout }}"
+    ansible_ssh_user: "{{ item.0.ansible_ssh_user|default(provision_docker__ssh_user) }}"
+    ansible_ssh_pass: "{{ item.0.ansible_ssh_pass|default(provision_docker__ssh_pass) }}"
+    groups: "{{ provision_docker__inventory_groups|union(item.0.groups|default([]))|join(',') }}"
   with_together:
-    - '{{ provision_docker__inventory }}'
-    - '{{ provision_docker__register_ip_addresses.results }}'
-  when: (provision_docker__container_state == 'started' or provision_docker__container_state == 'reloaded' or
-         provision_docker__container_state == 'restarted')
+    - "{{ provision_docker__inventory }}"
+    - "{{ provision_docker__register_ip_addresses.results }}"
+  when: (provision_docker__container_state == "started" or provision_docker__container_state == "reloaded" or
+         provision_docker__container_state == "restarted")
   changed_when: false
-  tags: [ 'setup' ]
+  tags: [ "setup" ]

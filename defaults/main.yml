@@ -13,17 +13,17 @@ provision_docker__inventory: []
 #    volumes: [ string ]
 
 # state of provisioned Docker containers
-provision_docker__container_state: 'started'
+provision_docker__container_state: "started"
 
 # default Ansible inventory groups for provisioned Docker containers,
 # appends to existing groups specified in inventory file
 provision_docker__inventory_groups:
-  - 'provision_docker__containers'
+  - "provision_docker__containers"
 
 # default user for SSH connection to Docker containers,
 # can be overriden pre host in inventory file through variable ansible_ssh_user
-provision_docker__ssh_user: 'root'
+provision_docker__ssh_user: "root"
 
 # default password for SSH connection to Docker containers,
 # can be overriden per host in inventory file through variable ansible_ssh_pass
-provision_docker__ssh_pass: 'docker.io'
+provision_docker__ssh_pass: "docker.io"

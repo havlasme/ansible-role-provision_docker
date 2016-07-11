@@ -2,50 +2,50 @@
 - name: Pre-Test Scenario 1.0 - Initialize Docker containers
   hosts: localhost
   roles:
-    - role: 'tomashavlas.provision_docker'
+    - role: "tomashavlas.provision_docker"
       provision_docker__inventory:
-        - name: 'test_provision_docker_01_centos7'
-          image: 'tomashavlas/ansible-test:centos7'
+        - name: "test_provision_docker_01_centos7"
+          image: "tomashavlas/ansible-test:centos7"
           volumes:
-            - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
-        - name: 'test_provision_docker_01_debian8'
-          image: 'tomashavlas/ansible-test:debian8'
+            - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
+        - name: "test_provision_docker_01_debian8"
+          image: "tomashavlas/ansible-test:debian8"
           volumes:
-            - '/sys/fs/cgroup:/sys/fs/cgroup:ro'
+            - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
   post_tasks:
     - name: Wait for SSH connection to Docker containers
       wait_for:
-        host: '{{ hostvars[item.name]["ansible_ssh_host"] }}'
+        host: "{{ hostvars[item.name]['ansible_ssh_host'] }}"
         port: 22
         timeout: 30
         connect_timeout: 30
-      with_items: '{{ provision_docker__inventory }}'
-  tags: [ 'initialize-docker' ]
+      with_items: "{{ provision_docker__inventory }}"
+  tags: [ "initialize-docker" ]
 
 - name: Test Scenario 1.1 - Basic role functionality
   hosts: provision_docker__containers
-  remote_user: 'root'
+  remote_user: "root"
   vars:
-    test_file_path: '/tmp/testfile'
-    test_file_content: 'I am a docker container {{ inventory_hostname }}'
+    test_file_path: "/tmp/testfile"
+    test_file_content: "I am a docker container {{ inventory_hostname }}"
   post_tasks:
     - name: Acceptance Test - verify presence of test files on docker hosts
       copy:
-        dest: '{{ test_file_path }}'
-        content: '{{ test_file_content }}'
-        owner: 'root'
-        group: 'root'
+        dest: "{{ test_file_path }}"
+        content: "{{ test_file_content }}"
+        owner: "root"
+        group: "root"
         mode: 0440
         directory_mode: 0550
-      register: 'test_result'
+      register: "test_result"
       failed_when: (test_result|failed or test_result|changed)
-      tags: [ 'acceptance-test' ]
+      tags: [ "acceptance-test" ]
   tasks:
     - name: Functional Test - create simple test file on each docker host
       copy:
-        dest: '{{ test_file_path }}'
-        content: '{{ test_file_content }}'
-        owner: 'root'
-        group: 'root'
+        dest: "{{ test_file_path }}"
+        content: "{{ test_file_content }}"
+        owner: "root"
+        group: "root"
         mode: 0440
         directory_mode: 0550
